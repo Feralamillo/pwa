@@ -1,6 +1,6 @@
 {
-  "short_name": "PWA Default",
-  "name": "PWA Default",
+  "short_name": "PWA Custom",
+  "name": "PWA Custom",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,7 +20,7 @@
   ],
   "start_url": "./?utm_source=pwa",
   "display": "standalone",
-  "theme_color": "#1282A2",
-  "background_color": "#034078",
-  "description": "PWA with default installation"
+  "theme_color": "#134611",
+  "background_color": "#04724D",
+  "description": "PWA with custom installation"
 }
