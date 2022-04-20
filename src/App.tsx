@@ -23,6 +23,7 @@ function App() {
             Add to Homescreen
           </Button>
         )}
+        <h1>2</h1>
       </header>
     </div>
   );
