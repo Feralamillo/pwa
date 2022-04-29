@@ -72,7 +72,7 @@ function App() {
           color='secondary'
           onClick={createNotification}
         >
-          Show Notification
+          Allow Notifications
         </Button>
         <h1>4</h1>
       </header>
