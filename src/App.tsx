@@ -21,7 +21,7 @@ function App() {
         if (permission !== 'granted') {
           alert('you need to allow push notifications');
         } else {
-          const timestamp = new Date().getTime() + 5 * 1000; // now plus 5000ms
+          const timestamp = new Date().getTime() + 30 * 1000; // now plus 5000ms
           if (!reg) {
             alert('No registration');
             return;
@@ -70,7 +70,7 @@ function App() {
         >
           Show Notification
         </Button>
-        <h1>3</h1>
+        <h1>4</h1>
       </header>
     </div>
   );
