@@ -74,7 +74,7 @@ function App() {
         >
           Allow Notifications
         </Button>
-        <h1>4</h1>
+        <h1>5</h1>
       </header>
     </div>
   );
