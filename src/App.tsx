@@ -48,6 +48,16 @@ function App() {
                 body: 'Buzz! Buzz!',
                 vibrate: [200, 100, 200, 100, 200, 100, 200],
                 tag: 'vibration-sample',
+                actions: [
+                  {
+                    action: 'open',
+                    title: 'Open app',
+                  },
+                  {
+                    action: 'close',
+                    title: 'Close notification',
+                  },
+                ],
               });
             });
           }
@@ -65,7 +75,7 @@ function App() {
             Add to Homescreen
           </Button>
         )}
-        <h1>11</h1>
+        <h1>12</h1>
       </header>
     </div>
   );
