@@ -173,14 +173,7 @@ function App() {
             Add to Homescreen
           </Button>
         )}
-        <Button
-          variant='contained'
-          color='secondary'
-          onClick={createNotification}
-        >
-          Allow Notifications
-        </Button>
-        <h1>8</h1>
+        <h1>9</h1>
       </header>
     </div>
   );
