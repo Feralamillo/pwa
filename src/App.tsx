@@ -14,6 +14,46 @@ function App() {
     }
   }, [prompt]);
 
+  async function createNotification() {
+    try {
+      const reg = await navigator.serviceWorker.getRegistration();
+      Notification.requestPermission().then((permission) => {
+        if (permission !== 'granted') {
+          alert('you need to allow push notifications');
+        } else {
+          const timestamp = new Date().getTime() + 5 * 1000; // now plus 5000ms
+          if (!reg) {
+            alert('No registration');
+            return;
+          }
+          reg.showNotification('Demo Push Notification', {
+            tag: timestamp.toString(), // a unique ID
+            timestamp,
+            body: 'Inshur is Awesome', // content of the push notification
+            // showTrigger: new TimestampTrigger(timestamp), // set the time for the push notification
+            data: {
+              url: window.location.href, // pass the current url to the notification
+            },
+            // badge: './assets/badge.png',
+            // icon: './assets/icon.png',
+            actions: [
+              {
+                action: 'open',
+                title: 'Open app',
+              },
+              {
+                action: 'close',
+                title: 'Close notification',
+              },
+            ],
+          });
+        }
+      });
+    } catch {
+      alert('Failed to register the service worker');
+    }
+  }
+
   return (
     <div className='App'>
       <header className='App-header'>
@@ -23,7 +63,14 @@ function App() {
             Add to Homescreen
           </Button>
         )}
-        <h1>2</h1>
+        <Button
+          variant='contained'
+          color='secondary'
+          onClick={createNotification}
+        >
+          Show Notification
+        </Button>
+        <h1>3</h1>
       </header>
     </div>
   );

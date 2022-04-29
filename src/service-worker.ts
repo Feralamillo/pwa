@@ -79,3 +79,10 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+self.addEventListener('notificationclick', (event) => {
+  if (event.action === 'close') {
+    event.notification.close();
+  } else {
+    self.clients.openWindow('/');
+  }
+});
