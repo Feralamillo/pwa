@@ -14,6 +14,24 @@ function App() {
     }
   }, [prompt]);
 
+  useEffect(() => {
+    showNotification();
+  }, []);
+
+  function showNotification() {
+    Notification.requestPermission(function (result) {
+      if (result === 'granted') {
+        navigator.serviceWorker.ready.then(function (registration) {
+          registration.showNotification('Vibration Sample', {
+            body: 'Buzz! Buzz!',
+            vibrate: [200, 100, 200, 100, 200, 100, 200],
+            tag: 'vibration-sample',
+          });
+        });
+      }
+    });
+  }
+
   async function createNotification() {
     try {
       const reg = await navigator.serviceWorker.getRegistration();
@@ -74,7 +92,7 @@ function App() {
         >
           Allow Notifications
         </Button>
-        <h1>5</h1>
+        <h1>6</h1>
       </header>
     </div>
   );
