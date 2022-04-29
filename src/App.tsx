@@ -19,17 +19,21 @@ function App() {
   }, []);
 
   function showNotification() {
-    Notification.requestPermission(function (result) {
-      if (result === 'granted') {
-        navigator.serviceWorker.ready.then(function (registration) {
-          registration.showNotification('Vibration Sample', {
-            body: 'Buzz! Buzz!',
-            vibrate: [200, 100, 200, 100, 200, 100, 200],
-            tag: 'vibration-sample',
-          });
-        });
-      }
-    });
+    setTimeout(
+      () =>
+        Notification.requestPermission(function (result) {
+          if (result === 'granted') {
+            navigator.serviceWorker.ready.then(function (registration) {
+              registration.showNotification('Vibration Sample', {
+                body: 'Buzz! Buzz!',
+                vibrate: [200, 100, 200, 100, 200, 100, 200],
+                tag: 'vibration-sample',
+              });
+            });
+          }
+        }),
+      5000
+    );
   }
 
   async function createNotification() {
@@ -92,7 +96,7 @@ function App() {
         >
           Allow Notifications
         </Button>
-        <h1>6</h1>
+        <h1>7</h1>
       </header>
     </div>
   );
