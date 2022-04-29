@@ -26,27 +26,31 @@ function App() {
             alert('No registration');
             return;
           }
-          reg.showNotification('Demo Push Notification', {
-            tag: timestamp.toString(), // a unique ID
-            timestamp,
-            body: 'Inshur is Awesome', // content of the push notification
-            // showTrigger: new TimestampTrigger(timestamp), // set the time for the push notification
-            data: {
-              url: window.location.href, // pass the current url to the notification
-            },
-            // badge: './assets/badge.png',
-            // icon: './assets/icon.png',
-            actions: [
-              {
-                action: 'open',
-                title: 'Open app',
-              },
-              {
-                action: 'close',
-                title: 'Close notification',
-              },
-            ],
-          });
+          setTimeout(
+            () =>
+              reg.showNotification('Demo Push Notification', {
+                tag: timestamp.toString(), // a unique ID
+                timestamp,
+                body: 'Inshur is Awesome', // content of the push notification
+                // showTrigger: new TimestampTrigger(timestamp), // set the time for the push notification
+                data: {
+                  url: window.location.href, // pass the current url to the notification
+                },
+                // badge: './assets/badge.png',
+                // icon: './assets/icon.png',
+                actions: [
+                  {
+                    action: 'open',
+                    title: 'Open app',
+                  },
+                  {
+                    action: 'close',
+                    title: 'Close notification',
+                  },
+                ],
+              }),
+            timestamp
+          );
         }
       });
     } catch {
