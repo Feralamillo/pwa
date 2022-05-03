@@ -130,12 +130,13 @@ function registerValidSW(swUrl: string, config?: Config) {
       let refreshing = false;
 
       // detect controller change and refresh the page
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
+      navigator.serviceWorker.oncontrollerchange = () => {
+        console.log('Refreshing');
         if (!refreshing) {
           window.location.reload();
           refreshing = true;
         }
-      });
+      };
     })
     .catch((error) => {
       console.error('Error during service worker registration:', error);
