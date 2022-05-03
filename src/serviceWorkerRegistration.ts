@@ -59,26 +59,26 @@ export function register(config?: Config) {
   }
 }
 
-function invokeServiceWorkerUpdateFlow(
-  registration: ServiceWorkerRegistration
-) {
-  // TODO implement your own UI notification element
-  // eslint-disable-next-line no-restricted-globals
-  if (confirm('New version of the app is available. Refresh now?') === true) {
-    if (registration.waiting) {
-      // let waiting Service Worker know it should became active
-      registration.waiting.postMessage('SKIP_WAITING');
-    }
-  }
-}
+// function invokeServiceWorkerUpdateFlow(
+//   registration: ServiceWorkerRegistration
+// ) {
+//   // TODO implement your own UI notification element
+//   // eslint-disable-next-line no-restricted-globals
+//   // if (confirm('New version of the app is available. Refresh now?') === true) {
+//   if (registration.waiting) {
+//     // let waiting Service Worker know it should became active
+//     registration.waiting.postMessage('SKIP_WAITING');
+//   }
+//   // }
+// }
 
 function registerValidSW(swUrl: string, config?: Config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
-      if (registration.waiting) {
-        invokeServiceWorkerUpdateFlow(registration);
-      }
+      // if (registration.waiting) {
+      //   invokeServiceWorkerUpdateFlow(registration);
+      // }
 
       registration.onupdatefound = () => {
         console.log('Service Worker update detected!');
@@ -89,15 +89,15 @@ function registerValidSW(swUrl: string, config?: Config) {
         }
 
         installingWorker.onstatechange = () => {
-          if (registration.waiting) {
-            // if there's an existing controller (previous Service Worker), show the prompt
-            if (navigator.serviceWorker.controller) {
-              invokeServiceWorkerUpdateFlow(registration);
-            } else {
-              // otherwise it's the first install, nothing to do
-              console.log('Service Worker initialized for the first time');
-            }
-          }
+          // if (registration.waiting) {
+          //   // if there's an existing controller (previous Service Worker), show the prompt
+          //   if (navigator.serviceWorker.controller) {
+          //     invokeServiceWorkerUpdateFlow(registration);
+          //   } else {
+          //     // otherwise it's the first install, nothing to do
+          //     console.log('Service Worker initialized for the first time');
+          //   }
+          // }
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               // At this point, the updated precached content has been fetched,
