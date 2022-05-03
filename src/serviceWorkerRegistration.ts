@@ -37,7 +37,7 @@ export function register(config?: Config) {
     }
 
     window.addEventListener('load', () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js?1`;
+      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
@@ -59,16 +59,45 @@ export function register(config?: Config) {
   }
 }
 
+function invokeServiceWorkerUpdateFlow(
+  registration: ServiceWorkerRegistration
+) {
+  // TODO implement your own UI notification element
+  // eslint-disable-next-line no-restricted-globals
+  if (confirm('New version of the app is available. Refresh now?') === true) {
+    if (registration.waiting) {
+      // let waiting Service Worker know it should became active
+      registration.waiting.postMessage('SKIP_WAITING');
+    }
+  }
+}
+
 function registerValidSW(swUrl: string, config?: Config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+      if (registration.waiting) {
+        invokeServiceWorkerUpdateFlow(registration);
+      }
+
       registration.onupdatefound = () => {
+        console.log('Service Worker update detected!');
+
         const installingWorker = registration.installing;
         if (installingWorker == null) {
           return;
         }
+
         installingWorker.onstatechange = () => {
+          if (registration.waiting) {
+            // if there's an existing controller (previous Service Worker), show the prompt
+            if (navigator.serviceWorker.controller) {
+              invokeServiceWorkerUpdateFlow(registration);
+            } else {
+              // otherwise it's the first install, nothing to do
+              console.log('Service Worker initialized for the first time');
+            }
+          }
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               // At this point, the updated precached content has been fetched,
@@ -99,6 +128,16 @@ function registerValidSW(swUrl: string, config?: Config) {
           }
         };
       };
+
+      let refreshing = false;
+
+      // detect controller change and refresh the page
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) {
+          window.location.reload();
+          refreshing = true;
+        }
+      });
     })
     .catch((error) => {
       console.error('Error during service worker registration:', error);
